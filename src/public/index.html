@@ -14,7 +14,7 @@
     <!-- Navbar Superior con Perfil y Sesión JWT -->
     <header class="navbar">
       <div class="brand">
-        <div class="brand-icon">⚡</div>
+        <div class="brand-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
         <div class="brand-text">
           <h1>IncidentHub <span>Quality Pro</span></h1>
           <p class="subtitle">Unidad 7 &bull; Jest &bull; ESLint &bull; Optimización de Rendimiento &bull; Arquitectura MVC</p>
@@ -29,7 +29,7 @@
             <span class="user-name" id="userName">Nombre Usuario</span>
             <div class="user-badges">
               <span class="role-badge" id="userRoleBadge">ANALISTA</span>
-              <span class="security-chip">🔒 JWT Válido</span>
+              <span class="security-chip">JWT Válido</span>
             </div>
           </div>
           <button id="btnLogout" class="btn btn-outline-danger" title="Cerrar sesión actual">
@@ -39,7 +39,7 @@
 
         <!-- Botón para Iniciar Sesión (si no hay token) -->
         <button id="btnOpenLogin" class="btn btn-primary" style="display: none;">
-          🔑 Iniciar Sesión
+          Iniciar Sesión
         </button>
 
         <!-- Botón Registrar Incidente -->
@@ -119,7 +119,7 @@
     <!-- Controles de Filtros y Búsqueda -->
     <section class="controls-panel">
       <div class="search-box">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
         <input type="text" id="searchInput" placeholder="Buscar incidentes por título, descripción o responsable...">
       </div>
 
@@ -151,7 +151,7 @@
         </button>
 
         <button id="btnRecargar" class="btn btn-secondary" title="Sincronizar con backend">
-          ↻ Sincronizar
+          Sincronizar
         </button>
       </div>
     </section>
@@ -182,23 +182,23 @@
   <div id="loginModal" class="modal-backdrop">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>🔐 Autenticación de Usuario (JWT)</h3>
+        <h3>Autenticación de Usuario (JWT)</h3>
       </div>
       <form id="loginForm" novalidate>
         <p class="modal-desc">Ingresa tus credenciales o selecciona un perfil rápido para probar el control de roles:</p>
 
         <!-- Accesos rápidos para evaluación docente -->
         <div class="quick-login-box">
-          <span class="quick-title">⚡ Perfiles de Prueba Rápidos:</span>
+          <span class="quick-title">Perfiles de Prueba Rápidos:</span>
           <div class="quick-buttons">
             <button type="button" class="btn-quick admin" onclick="seleccionarPerfilDemo('admin@plataforma.edu', 'Admin123*')">
-              👑 Admin (Acceso Total + Eliminar)
+              Admin (Acceso Total + Eliminar)
             </button>
             <button type="button" class="btn-quick supervisor" onclick="seleccionarPerfilDemo('supervisor@plataforma.edu', 'Supervisor123*')">
-              👔 Supervisor (Ver + Editar)
+              Supervisor (Ver + Editar)
             </button>
             <button type="button" class="btn-quick analista" onclick="seleccionarPerfilDemo('analista@plataforma.edu', 'Analista123*')">
-              🔬 Analista (Ver + Crear)
+              Analista (Ver + Crear)
             </button>
           </div>
         </div>

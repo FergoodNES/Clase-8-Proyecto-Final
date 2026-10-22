@@ -1,55 +1,55 @@
-# 📘 DOCUMENTACIÓN TÉCNICA DEL PROYECTO INTEGRADOR
+# DOCUMENTACIÓN TÉCNICA DEL PROYECTO INTEGRADOR
 ## Plataforma Segura de Gestión de Incidentes — IncidentHub Enterprise Pro
-**Asignatura:** Desarrollo en Plataformas (PUCE Virtual)  
-**Semana / Reto:** Semana 8 — T1S8: Reto 4: Integración, Despliegue y Defensa de la Plataforma Web Segura  
-**Versión del Sistema:** `v4.0.0-production`  
-**Fecha de Publicación:** Octubre de 2026  
-**Autor:** Fer  
+**Asignatura:** Desarrollo en Plataformas (PUCE Virtual) 
+**Semana / Reto:** Semana 8 — T1S8: Reto 4: Integración, Despliegue y Defensa de la Plataforma Web Segura 
+**Versión del Sistema:** `v4.0.0-production` 
+**Fecha de Publicación:** Octubre de 2026 
+**Autor:** Fer 
 **Calificación Objetivo:** 50/50 Puntos (Excelente)
 
 ---
 
-## 🏛️ 1. Arquitectura del Sistema
+## 1. Arquitectura del Sistema
 
 La solución implementa una **Arquitectura en Capas desacoplada bajo el Patrón MVC (Model-View-Controller) con Service Layer y Domain-Driven Design (DDD)**, asegurando alta cohesión, bajo acoplamiento y máxima mantenibilidad.
 
 ```
-                                  [ CLIENTE WEB ]
-                    Navegador (HTML5, CSS3 Glassmorphism, JS Modular)
-                     4 Estados de UI (Loading, Empty, Data, Error)
-                                          │
-                                          │ HTTPS / TLS (Gzip + ETag)
-                                          ▼
-                                 [ SERVIDOR EXPRESS ]
-                      CORS (Whitelist) + Helmet Security Headers
-                     Logger Estructurado (Auditoría con Request-Id)
-                                          │
-                   ┌──────────────────────┴──────────────────────┐
-                   ▼                                             ▼
-         [ CONTROLADORES (C) ]                         [ RUTAS DE SALUD ]
-       Auth / Incidentes / Health                     /api/health (Deep Check)
-    Manejo de HTTP Status & DTOs                      /api/health/liveness
-                   │                                  /api/health/readiness
-                   ▼
-          [ SERVICIOS (Service) ]
-       Lógica de Aplicación & SLAs
-                   │
-         ┌─────────┴─────────┐
-         ▼                   ▼
- [ DOMINIO DE NEGOCIO ]  [ MODELOS (M) ]
-  Máquina de estados      Prisma ORM (Data Access)
-  Reglas de asignación    Proyección selectiva
-  Cálculo de MTTR        Consultas indexadas
-         │                   │
-         └─────────┬─────────┘
-                   ▼
-         [ BASE DE DATOS ]
-       SQLite con Índices B-Tree
+ [ CLIENTE WEB ]
+ Navegador (HTML5, CSS3 Glassmorphism, JS Modular)
+ 4 Estados de UI (Loading, Empty, Data, Error)
+ │
+ │ HTTPS / TLS (Gzip + ETag)
+ ▼
+ [ SERVIDOR EXPRESS ]
+ CORS (Whitelist) + Helmet Security Headers
+ Logger Estructurado (Auditoría con Request-Id)
+ │
+ ┌──────────────────────┴──────────────────────┐
+ ▼ ▼
+ [ CONTROLADORES (C) ] [ RUTAS DE SALUD ]
+ Auth / Incidentes / Health /api/health (Deep Check)
+ Manejo de HTTP Status & DTOs /api/health/liveness
+ │ /api/health/readiness
+ ▼
+ [ SERVICIOS (Service) ]
+ Lógica de Aplicación & SLAs
+ │
+ ┌─────────┴─────────┐
+ ▼ ▼
+ [ DOMINIO DE NEGOCIO ] [ MODELOS (M) ]
+ Máquina de estados Prisma ORM (Data Access)
+ Reglas de asignación Proyección selectiva
+ Cálculo de MTTR Consultas indexadas
+ │ │
+ └─────────┬─────────┘
+ ▼
+ [ BASE DE DATOS ]
+ SQLite con Índices B-Tree
 ```
 
 ---
 
-## ⚙️ 2. Requisitos del Sistema y Pila Tecnológica
+## 2. Requisitos del Sistema y Pila Tecnológica
 
 | Componente | Tecnología | Versión | Justificación Técnica |
 | :--- | :--- | :--- | :--- |
@@ -67,7 +67,7 @@ La solución implementa una **Arquitectura en Capas desacoplada bajo el Patrón 
 
 ---
 
-## 🔒 3. Configuración de Entorno y Variables
+## 3. Configuración de Entorno y Variables
 
 Siguiendo las directrices del **Tema 15.2**, todas las credenciales y parámetros de infraestructura se gestionan fuera del código mediante variables de entorno:
 
@@ -84,7 +84,7 @@ Siguiendo las directrices del **Tema 15.2**, todas las credenciales y parámetro
 
 ---
 
-## 📊 4. Monitoreo, Logging Estructurado y Health Checks
+## 4. Monitoreo, Logging Estructurado y Health Checks
 
 ### 4.1. Niveles y Formato de Logs (`src/config/logger.js`)
 El sistema emite registros estructurados en formato JSON persistidos en `logs/app.log`:
@@ -95,16 +95,16 @@ El sistema emite registros estructurados en formato JSON persistidos en `logs/ap
 
 ### 4.2. Endpoints de Salud y Diagnóstico
 * **`GET /api/health` (Deep Check):**
-  * Retorna el estado global (`HEALTHY` o `DEGRADED`).
-  * Ejecuta ping real a la base de datos (`SELECT 1`) midiendo latencia en milisegundos.
-  * Informa consumo de memoria (RSS, Heap Used, Heap Total en MB).
-  * Informa tiempo de actividad ininterrumpida (*Uptime* legible).
+ * Retorna el estado global (`HEALTHY` o `DEGRADED`).
+ * Ejecuta ping real a la base de datos (`SELECT 1`) midiendo latencia en milisegundos.
+ * Informa consumo de memoria (RSS, Heap Used, Heap Total en MB).
+ * Informa tiempo de actividad ininterrumpida (*Uptime* legible).
 * **`GET /api/health/liveness`:** Retorna `200 UP` para sondas rápidas de balanceadores de carga.
 * **`GET /api/health/readiness`:** Retorna `200 READY` confirmando que la base de datos está lista.
 
 ---
 
-## 🌐 5. Especificación de Endpoints de la API REST
+## 5. Especificación de Endpoints de la API REST
 
 Todas las rutas operativas (excepto login y health) exigen cabecera `Authorization: Bearer <TOKEN_JWT>`:
 
@@ -121,7 +121,7 @@ Todas las rutas operativas (excepto login y health) exigen cabecera `Authorizati
 
 ---
 
-## 🚀 6. Guía de Instalación y Despliegue
+## 6. Guía de Instalación y Despliegue
 
 ### Puesta en Marcha Local:
 ```bash
@@ -144,7 +144,7 @@ npm run dev
 
 ---
 
-## 🧪 7. Pruebas Automatizadas y Verificación de Calidad
+## 7. Pruebas Automatizadas y Verificación de Calidad
 
 | Comando | Suite Ejecutada | Total de Pruebas | Resultado |
 | :--- | :--- | :---: | :---: |

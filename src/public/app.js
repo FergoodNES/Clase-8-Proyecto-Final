@@ -319,7 +319,7 @@ function renderizarEstadoCargando() {
 function renderizarEstadoVacio(mensaje) {
   incidentesContainer.innerHTML = `
     <div class="empty-state">
-      <p style="font-size: 16px; font-weight: 600;">📁 Sin registros</p>
+      <p style="font-size: 16px; font-weight: 600;">Sin registros</p>
       <p style="margin-top: 6px;">${escapeHtml(mensaje)}</p>
       <button class="btn btn-secondary" style="margin-top: 14px;" onclick="document.getElementById('btnLimpiarFiltros').click()">
         Limpiar Filtros
@@ -360,7 +360,7 @@ function renderizarListaIncidentes(incidentes) {
 
     const slaBadge = inc.sla ? `
       <span class="badge-sla badge-sla-${inc.sla.estadoSLA.toLowerCase()}">
-        ⏱️ SLA: ${inc.sla.minutosRestantes > 0 ? inc.sla.minutosRestantes + 'm' : 'VENCIDO'}
+        SLA: ${inc.sla.minutosRestantes > 0 ? inc.sla.minutosRestantes + 'm' : 'VENCIDO'}
       </span>` : '';
 
     // Estructura segura
@@ -403,7 +403,7 @@ function renderizarListaIncidentes(incidentes) {
         <div class="btn-group">
           <button class="btn btn-edit-sm" onclick="abrirModalEditar(${inc.id})">Editar</button>
           <button class="btn btn-danger-sm" onclick="intentarEliminar(${inc.id})" title="${esAdmin ? 'Eliminar incidente' : 'Requiere rol Administrador'}">
-            ${esAdmin ? '🗑️ Eliminar' : '🔒 Eliminar (Admin)'}
+            ${esAdmin ? 'Eliminar' : 'Eliminar (Solo Admin)'}
           </button>
         </div>
       </div>
@@ -529,7 +529,7 @@ async function intentarEliminar(id) {
     cargarDatos();
   } catch (error) {
     if (error.status === 403) {
-      mostrarToast(`🛡️ BLOQUEO RBAC (403 Forbidden): ${error.message}`, 'error');
+      mostrarToast(`BLOQUEO RBAC (403 Forbidden): ${error.message}`, 'error');
     } else {
       mostrarToast(error.message, 'error');
     }
@@ -541,7 +541,7 @@ function mostrarToast(mensaje, tipo = 'success') {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
   toast.className = `toast ${tipo}`;
-  const icon = tipo === 'success' ? '✅' : (tipo === 'warning' ? '⚠️' : '🛑');
+  const icon = tipo === 'success' ? '✓' : (tipo === 'warning' ? '!' : '✕');
   toast.innerHTML = `<span>${icon}</span><span>${mensaje}</span>`;
   container.appendChild(toast);
 
