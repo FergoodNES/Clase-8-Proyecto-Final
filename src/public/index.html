@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncidentHub Security | Plataforma de Incidentes Protegida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Navbar Superior con Perfil y Sesión JWT -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <h1>IncidentHub <span>Quality Pro</span></h1>
+          <p class="subtitle">Unidad 7 &bull; Jest &bull; ESLint &bull; Optimización de Rendimiento &bull; Arquitectura MVC</p>
+        </div>
+      </div>
+
+      <div class="navbar-actions">
+        <!-- Contenedor de Usuario Autenticado -->
+        <div id="userProfileBar" class="user-profile-bar" style="display: none;">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div class="user-info">
+            <span class="user-name" id="userName">Nombre Usuario</span>
+            <div class="user-badges">
+              <span class="role-badge" id="userRoleBadge">ANALISTA</span>
+              <span class="security-chip">🔒 JWT Válido</span>
+            </div>
+          </div>
+          <button id="btnLogout" class="btn btn-outline-danger" title="Cerrar sesión actual">
+            Cerrar Sesión
+          </button>
+        </div>
+
+        <!-- Botón para Iniciar Sesión (si no hay token) -->
+        <button id="btnOpenLogin" class="btn btn-primary" style="display: none;">
+          🔑 Iniciar Sesión
+        </button>
+
+        <!-- Botón Registrar Incidente -->
+        <button id="btnNuevoIncidente" class="btn btn-primary" style="display: none;">
+          <span class="btn-icon">+</span> Registrar Incidente
+        </button>
+      </div>
+    </header>
+
+    <!-- Banner de Imagen Optimizado WebP (Demostración de Rendimiento) -->
+    <div class="hero-banner-container">
+      <img src="assets/dashboard-banner.webp" alt="Dashboard de Rendimiento e Incidentes" class="dashboard-hero-img" width="1200" height="280" loading="lazy" decoding="async">
+    </div>
+
+    <!-- Banner de Calidad y Rendimiento -->
+    <section class="security-banner">
+      <div class="security-banner-content">
+        <span class="shield-badge">CALIDAD &amp; ALTO RENDIMIENTO</span>
+        <p><strong>Plataforma Auditada y Optimizada:</strong> 30 pruebas unitarias e integrales con <strong>Jest (100% PASS)</strong>, código validado con <strong>ESLint Flat Config v10 (0 warnings)</strong>, compresión <strong>Gzip (-73.9% de red)</strong>, caché condicional <strong>ETag (HTTP 304)</strong> y consultas indexadas en SQLite (-46.9% latencia).</p>
+      </div>
+      <div class="security-banner-pills">
+        <span class="pill">ESLint: 0 Errores</span>
+        <span class="pill">Jest: 30 Tests PASS</span>
+        <span class="pill">Gzip: Activo</span>
+        <span class="pill">WebP: -97.3%</span>
+      </div>
+    </section>
+
+    <!-- Panel de Métricas / KPIs -->
+    <section class="metrics-grid">
+      <div class="metric-card total">
+        <div class="metric-header">
+          <span class="metric-title">Total Incidentes</span>
+          <span class="metric-badge">SQLite Seguro</span>
+        </div>
+        <div class="metric-value" id="kpiTotal">-</div>
+        <div class="metric-sub">Base de datos protegida</div>
+      </div>
+
+      <div class="metric-card abierto">
+        <div class="metric-header">
+          <span class="metric-title">Abiertos</span>
+          <span class="dot-badge open"></span>
+        </div>
+        <div class="metric-value" id="kpiAbiertos">-</div>
+        <div class="metric-sub">Por atender</div>
+      </div>
+
+      <div class="metric-card proceso">
+        <div class="metric-header">
+          <span class="metric-title">En Proceso</span>
+          <span class="dot-badge progress"></span>
+        </div>
+        <div class="metric-value" id="kpiEnProceso">-</div>
+        <div class="metric-sub">En investigación</div>
+      </div>
+
+      <div class="metric-card resuelto">
+        <div class="metric-header">
+          <span class="metric-title">Resueltos / Cerrados</span>
+          <span class="dot-badge resolved"></span>
+        </div>
+        <div class="metric-value" id="kpiResueltos">-</div>
+        <div class="metric-sub">Mitigados con éxito</div>
+      </div>
+
+      <div class="metric-card critica">
+        <div class="metric-header">
+          <span class="metric-title">Prioridad Crítica</span>
+          <span class="dot-badge critical"></span>
+        </div>
+        <div class="metric-value" id="kpiCriticos">-</div>
+        <div class="metric-sub">Impacto severo</div>
+      </div>
+    </section>
+
+    <!-- Controles de Filtros y Búsqueda -->
+    <section class="controls-panel">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar incidentes por título, descripción o responsable...">
+      </div>
+
+      <div class="filters-row">
+        <div class="filter-group">
+          <label for="filtroEstado">Estado:</label>
+          <select id="filtroEstado">
+            <option value="">Todos los Estados</option>
+            <option value="ABIERTO">Abierto</option>
+            <option value="EN_PROCESO">En Proceso</option>
+            <option value="RESUELTO">Resuelto</option>
+            <option value="CERRADO">Cerrado</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filtroPrioridad">Prioridad:</label>
+          <select id="filtroPrioridad">
+            <option value="">Todas las Prioridades</option>
+            <option value="CRITICA">Crítica</option>
+            <option value="ALTA">Alta</option>
+            <option value="MEDIA">Media</option>
+            <option value="BAJA">Baja</option>
+          </select>
+        </div>
+
+        <button id="btnLimpiarFiltros" class="btn btn-secondary" title="Restablecer filtros">
+          Restablecer
+        </button>
+
+        <button id="btnRecargar" class="btn btn-secondary" title="Sincronizar con backend">
+          ↻ Sincronizar
+        </button>
+      </div>
+    </section>
+
+    <!-- Lista de Incidentes con los 4 Estados de la UI -->
+    <main class="content-section">
+      <div class="section-header">
+        <h2>Listado de Incidentes <span id="contadorResultados">(0)</span></h2>
+        <span class="badge-protocol">Authorization: Bearer &lt;JWT&gt; &bull; RBAC Activo</span>
+      </div>
+
+      <!-- Contenedor dinámico (Estados: Cargando, Éxito, Vacío, Error) -->
+      <div id="incidentesContainer" class="cards-grid"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-left">
+        <strong>T1S6: Reto 3</strong> &bull; Revisión de Seguridad e Integración Completa &bull; Node.js, Express, Prisma ORM, SQLite, Bcrypt y JWT
+      </div>
+      <div class="footer-right">
+        <span>Token Expiration: <code>8h</code> &bull; Hashing: <code>bcrypt (salt 10)</code></span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal de Autenticación / Login -->
+  <div id="loginModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🔐 Autenticación de Usuario (JWT)</h3>
+      </div>
+      <form id="loginForm" novalidate>
+        <p class="modal-desc">Ingresa tus credenciales o selecciona un perfil rápido para probar el control de roles:</p>
+
+        <!-- Accesos rápidos para evaluación docente -->
+        <div class="quick-login-box">
+          <span class="quick-title">⚡ Perfiles de Prueba Rápidos:</span>
+          <div class="quick-buttons">
+            <button type="button" class="btn-quick admin" onclick="seleccionarPerfilDemo('admin@plataforma.edu', 'Admin123*')">
+              👑 Admin (Acceso Total + Eliminar)
+            </button>
+            <button type="button" class="btn-quick supervisor" onclick="seleccionarPerfilDemo('supervisor@plataforma.edu', 'Supervisor123*')">
+              👔 Supervisor (Ver + Editar)
+            </button>
+            <button type="button" class="btn-quick analista" onclick="seleccionarPerfilDemo('analista@plataforma.edu', 'Analista123*')">
+              🔬 Analista (Ver + Crear)
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="loginEmail">Correo Electrónico Institucional</label>
+          <input type="email" id="loginEmail" placeholder="usuario@plataforma.edu" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Contraseña Cifrada (Hash bcrypt en BD)</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+
+        <div id="loginErrorMessage" class="form-alert error-alert" style="display: none;"></div>
+
+        <div class="modal-footer">
+          <button type="submit" id="btnLoginSubmit" class="btn btn-primary" style="width: 100%;">
+            Iniciar Sesión y Obtener Token
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Registrar / Editar Incidente -->
+  <div id="incidenteModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Registrar Nuevo Incidente</h3>
+        <button id="btnCerrarModal" class="btn-close">&times;</button>
+      </div>
+
+      <form id="incidenteForm" novalidate>
+        <input type="hidden" id="incidenteId">
+
+        <div class="form-group">
+          <label for="tituloInput">Título del Incidente <span class="req">*</span></label>
+          <input type="text" id="tituloInput" placeholder="Ej: Intento de inyección SQL en endpoint de búsqueda" required minlength="5" maxlength="150">
+          <small class="helper-text">Mínimo 5 caracteres. Las etiquetas &lt;script&gt; serán sanitizadas.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcionInput">Descripción Técnica <span class="req">*</span></label>
+          <textarea id="descripcionInput" rows="3" placeholder="Detalla los hallazgos técnicos, vectores de ataque o afectación..." required minlength="10"></textarea>
+          <small class="helper-text">Mínimo 10 caracteres explicativos.</small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="prioridadInput">Prioridad <span class="req">*</span></label>
+            <select id="prioridadInput" required>
+              <option value="BAJA">Baja</option>
+              <option value="MEDIA" selected>Media</option>
+              <option value="ALTA">Alta</option>
+              <option value="CRITICA">Crítica</option>
+            </select>
+          </div>
+
+          <div class="form-group col">
+            <label for="estadoInput">Estado <span class="req">*</span></label>
+            <select id="estadoInput" required>
+              <option value="ABIERTO" selected>Abierto</option>
+              <option value="EN_PROCESO">En Proceso</option>
+              <option value="RESUELTO">Resuelto</option>
+              <option value="CERRADO">Cerrado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="asignadoAInput">Especialista / Equipo Asignado (Opcional)</label>
+          <input type="text" id="asignadoAInput" placeholder="Ej: Ing. Laura Gómez (Operaciones)">
+        </div>
+
+        <!-- Estado de error del formulario -->
+        <div id="formErrorMessage" class="form-alert error-alert" style="display: none;"></div>
+
+        <div class="modal-footer">
+          <button type="button" id="btnCancelarModal" class="btn btn-secondary">Cancelar</button>
+          <button type="submit" id="btnGuardarIncidente" class="btn btn-primary">
+            Guardar en Base de Datos
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

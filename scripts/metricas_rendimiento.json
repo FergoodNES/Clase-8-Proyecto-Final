@@ -1,0 +1,21 @@
+{
+  "fecha": "2026-10-17T02:05:25.638Z",
+  "consulta": {
+    "promedioA": 0.64,
+    "promedioB": 0.34,
+    "mejoraConsulta": 46.9
+  },
+  "imagen": {
+    "kbPng": 985,
+    "kbWebp": 26.7,
+    "reduccionPeso": 97.3,
+    "tiempoDescargaPngMs": 565,
+    "tiempoDescargaWebpMs": 54,
+    "mejoraTiempo": 90.4
+  },
+  "red": {
+    "kbRaw": 4.47,
+    "kbGzip": 1.17,
+    "reduccionRed": 73.9
+  }
+}

@@ -1,0 +1,39 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Usuario {
+  id                 Int         @id @default(autoincrement())
+  email              String      @unique
+  password           String      // Hash criptográfico con bcrypt
+  nombre             String
+  rol                String      @default("analista") // 'admin', 'supervisor', 'analista'
+  fechaCreacion      DateTime    @default(now())
+  incidentesCreados  Incidente[]
+
+  @@map("usuarios")
+}
+
+model Incidente {
+  id                 Int       @id @default(autoincrement())
+  titulo             String
+  descripcion        String
+  estado             String    @default("ABIERTO")
+  prioridad          String    @default("MEDIA")
+  reportadoPor       String
+  asignadoA          String?
+  creadoPorId        Int?
+  creadoPor          Usuario?  @relation(fields: [creadoPorId], references: [id], onDelete: SetNull)
+  fechaCreacion      DateTime  @default(now())
+  fechaActualizacion DateTime  @updatedAt
+
+  // Índices optimizados para acelerar consultas frecuentes de filtrado y relaciones (Unidad 7)
+  @@index([estado, prioridad])
+  @@index([creadoPorId])
+  @@map("incidentes")
+}
