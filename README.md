@@ -2,8 +2,8 @@
 ## Unidad 8: Despliegue, Monitoreo, Pruebas Productivas, Proyecto Final y Seguridad
 **Asignatura:** Desarrollo en Plataformas (PUCE Virtual) 
 **Semana / Reto:** Semana 8 — T1S8: Reto 4: Proyecto Integrador Final 
-**Estudiante:** Fer 
-**Calificación:** 50/50 Puntos (Excelente)
+**Estudiante:** Fer  
+**Video de Sustentacion en YouTube:** [https://youtu.be/zW-osx7VWuc](https://youtu.be/zW-osx7VWuc)  **Calificación:** 50/50 Puntos (Excelente)
 
 ---
 
@@ -157,4 +157,5 @@ ender.yaml para despliegue automatizado con infraestructura como código (IaC).
 
 - [DOCUMENTACION_TECNICA.md](./DOCUMENTACION_TECNICA.md): Arquitectura detallada, especificación de endpoints, estructura de logs y manual DevOps.
 - [MANUAL_DE_USUARIO.md](./MANUAL_DE_USUARIO.md): Guía de usuario final con capturas de pantalla de los flujos de creación, gestión y resolución.
+
 

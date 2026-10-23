@@ -1,4 +1,4 @@
-# DOCUMENTACIÓN TÉCNICA DEL PROYECTO INTEGRADOR
+﻿# DOCUMENTACIÓN TÉCNICA DEL PROYECTO INTEGRADOR
 ## Plataforma Segura de Gestión de Incidentes — IncidentHub Enterprise Pro
 **Asignatura:** Desarrollo en Plataformas (PUCE Virtual) 
 **Semana / Reto:** Semana 8 — T1S8: Reto 4: Integración, Despliegue y Defensa de la Plataforma Web Segura 
@@ -153,3 +153,4 @@ npm run dev
 | `npm run test:prod` | Health Check y CRUD E2E | 9 Pruebas | **9/9 PASS (100%)** |
 | `npm test` | Suite Integral Completa | **39 Pruebas** | **39/39 PASS (100%)** |
 | `npm run lint` | Auditoría de Calidad ESLint v10 | Código Total | **0 Errores, 0 Warnings** |
+
