@@ -1,7 +1,7 @@
 {
   "name": "t1s8-plataforma-despliegue-segura",
   "version": "1.0.0",
-  "description": "Unidad 8: Proyecto Integrador Final - Plataforma de gestión de incidentes con CRUD persistente, JWT, RBAC, logging estructurado, health check, monitoreo, pruebas E2E y despliegue productivo",
+  "description": "Unidad 8: Proyecto Integrador Final - Plataforma de gesti\u00f3n de incidentes con CRUD persistente, JWT, RBAC, logging estructurado, health check, monitoreo, pruebas E2E y despliegue productivo",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -15,7 +15,8 @@
     "test:integration": "jest tests/seguridad_integracion.test.js",
     "benchmark": "node scripts/benchmark_rendimiento.js",
     "health": "node scripts/check_health.js",
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed.js",
+    "postinstall": "prisma generate"
   },
   "keywords": [
     "production",
