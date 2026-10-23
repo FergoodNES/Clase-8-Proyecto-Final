@@ -157,4 +157,4 @@ ender.yaml para despliegue automatizado con infraestructura como código (IaC).
 
 - [DOCUMENTACION_TECNICA.md](./DOCUMENTACION_TECNICA.md): Arquitectura detallada, especificación de endpoints, estructura de logs y manual DevOps.
 - [MANUAL_DE_USUARIO.md](./MANUAL_DE_USUARIO.md): Guía de usuario final con capturas de pantalla de los flujos de creación, gestión y resolución.
-- [GUION_Y_PRESENTACION_DEFENSA.md](./GUION_Y_PRESENTACION_DEFENSA.md): Estructura para video de sustentación de 20 minutos.
+
