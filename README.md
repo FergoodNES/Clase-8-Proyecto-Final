@@ -3,13 +3,13 @@
 **Asignatura:** Desarrollo en Plataformas (PUCE Virtual) 
 **Semana / Reto:** Semana 8 — T1S8: Reto 4: Proyecto Integrador Final 
 **Estudiante:** Fer  
-**Video de Sustentacion en YouTube:** [https://youtu.be/zW-osx7VWuc](https://youtu.be/zW-osx7VWuc)  **Calificación:** 50/50 Puntos (Excelente)
+**Video de Sustentacion en YouTube:** [https://youtu.be/zW-osx7VWuc](https://youtu.be/zW-osx7VWuc)  **Puntaje Máximo del Reto:** 50 Puntos
 
 ---
 
 ## 1. Descripción del Proyecto
 
-**IncidentHub Enterprise Pro** es una solución web empresarial para la gestión, auditoría, ciclo de vida y resolución de incidentes de seguridad y TI. Está desarrollada con **Node.js, Express, Prisma ORM y SQLite**, implementando una arquitectura en capas (MVC + Service Layer) y cumpliendo estrictos principios de seguridad defensiva, monitoreo estructurado, pruebas automatizadas y preparación para despliegue en la nube (Docker / PaaS).
+**IncidentHub Enterprise Pro** es una solución web empresarial para la gestión, auditoría, ciclo de vida y resolución de incidentes de seguridad y TI. Está desarrollada con **Node.js, Express, Prisma ORM (SQLite en local / PostgreSQL en Cloud)**, implementando una arquitectura en capas (MVC + Service Layer) y cumpliendo estrictos principios de seguridad defensiva, monitoreo estructurado, pruebas automatizadas y preparación para despliegue en la nube (Docker / PaaS).
 
 ---
 
@@ -157,5 +157,6 @@ ender.yaml para despliegue automatizado con infraestructura como código (IaC).
 
 - [DOCUMENTACION_TECNICA.md](./DOCUMENTACION_TECNICA.md): Arquitectura detallada, especificación de endpoints, estructura de logs y manual DevOps.
 - [MANUAL_DE_USUARIO.md](./MANUAL_DE_USUARIO.md): Guía de usuario final con capturas de pantalla de los flujos de creación, gestión y resolución.
+
 
 

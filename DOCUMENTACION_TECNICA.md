@@ -5,7 +5,7 @@
 **Versión del Sistema:** `v4.0.0-production` 
 **Fecha de Publicación:** Octubre de 2026 
 **Autor:** Fer 
-**Calificación Objetivo:** 50/50 Puntos (Excelente)
+**Puntaje Máximo del Reto:** 50 Puntos
 
 ---
 
@@ -138,7 +138,7 @@ npm run seed
 npm run dev
 ```
 
-### Despliegue en la Nube (Render / Vercel / Docker):
+### Despliegue en la Nube (Render PaaS (PostgreSQL Gestionado) / Docker):
 * **Render:** Conectar el repositorio de GitHub y seleccionar **Web Service**. El archivo `render.yaml` preconfigura automáticamente el comando de construcción (`npm install && npx prisma db push && node prisma/seed.js`), el comando de inicio (`npm start`), la ruta de health check (`/api/health`) y las variables de entorno.
 * **Docker:** Ejecutar `docker build -t incidenthub:latest .` y luego `docker run -p 3000:3000 incidenthub:latest`.
 
@@ -153,4 +153,5 @@ npm run dev
 | `npm run test:prod` | Health Check y CRUD E2E | 9 Pruebas | **9/9 PASS (100%)** |
 | `npm test` | Suite Integral Completa | **39 Pruebas** | **39/39 PASS (100%)** |
 | `npm run lint` | Auditoría de Calidad ESLint v10 | Código Total | **0 Errores, 0 Warnings** |
+
 

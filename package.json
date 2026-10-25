@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "t1s8-plataforma-despliegue-segura",
   "version": "1.0.0",
   "description": "Unidad 8: Proyecto Integrador Final - Plataforma de gesti\u00f3n de incidentes con CRUD persistente, JWT, RBAC, logging estructurado, health check, monitoreo, pruebas E2E y despliegue productivo",
@@ -22,8 +22,7 @@
     "production",
     "deployment",
     "render",
-    "vercel",
-    "docker",
+        "docker",
     "health-check",
     "structured-logging",
     "mvc",

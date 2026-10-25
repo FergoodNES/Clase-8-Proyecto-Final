@@ -1,10 +1,10 @@
-services:
+﻿services:
   - type: web
     name: incidenthub-platform-secure
     env: node
     plan: free
     region: oregon
-    buildCommand: npm install && npx prisma generate && npx prisma db push && node prisma/seed.js
+    buildCommand: npm install && node scripts/prepare-prisma.js && npx prisma generate && npx prisma db push && node prisma/seed.js
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
@@ -13,8 +13,17 @@ services:
       - key: PORT
         value: 10000
       - key: DATABASE_URL
-        value: file:./prod.db
+        fromDatabase:
+          name: incidenthub-postgres
+          property: connectionString
       - key: JWT_SECRET
         generateValue: true
       - key: ALLOWED_ORIGINS
-        value: https://incidenthub-platform-secure.onrender.com,http://localhost:3000
+        value: "*"
+
+databases:
+  - name: incidenthub-postgres
+    plan: free
+    region: oregon
+    databaseName: incidenthub_db
+    user: incidenthub_user
